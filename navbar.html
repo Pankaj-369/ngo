@@ -1,0 +1,150 @@
+ <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+    <div class="container">
+      <div class="logo">
+        <img src="logo8.jpg" alt="Connect4Good Logo">
+    </div>
+      <!-- <a class="navbar-brand" href="#">Connect4Good</a> -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="Index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="register.html">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="ngos.html">NGO list</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="volunteers.html">Registered users</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="campaigns.html">Campaigns</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+</nav>
+
+<style>
+  .logo img {
+            height: 90px; 
+            width: 200px;
+            
+        }
+  .navbar {
+      transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      
+  }
+  .navbar:hover {
+      background-color: #f8f9fa;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .navbar .nav-link {
+      position: relative;
+      transition: color 0.3s ease-in-out;
+  }
+  .navbar .nav-link:hover {
+      color: #007bff;
+  }
+  .navbar .nav-link::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -4px;
+      width: 0;
+      height: 2px;
+      background-color: #007bff;
+      transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+  }
+  .navbar .nav-link:hover::after {
+      width: 100%;
+      left: 0;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="navbar">
+    <div class="logo">Connect<span>4</span>Good</div>
+    <a href="Home.html">Home</a>
+    <a href="login.html">Login</a>
+    <a href="register.html">Register</a>
+    <a href="campaigns.html">Campaigns</a>
+    <a href="#about">About</a>
+</div>
+<style>
+    .navbar {
+        background: #80CBC4;
+        overflow: hidden;
+        padding: 12px 20px;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .logo {
+        font-size: 26px;
+        font-weight: bold;
+        color: white;
+        font-family: 'Montserrat', sans-serif;
+        letter-spacing: 1px;
+        background: #ffcc00;
+        padding: 8px 15px;
+        border-radius: 8px;
+    }
+    .logo span {
+        color: #FBF8EF;
+    }
+    .navbar a {
+        color: white;
+        padding: 14px 20px;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+        font-family: 'Poppins', sans-serif;
+        transition: 0.3s ease;
+        position: relative;
+    }
+    .navbar a:hover {
+        color: #ffcc00;
+    }
+    .navbar a::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 3px;
+        background: #ffcc00;
+        transition: width 0.3s;
+        position: absolute;
+        bottom: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    .navbar a:hover::after {
+        width: 100%;
+    }
+</style>
+ -->
