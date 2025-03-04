@@ -1,0 +1,246 @@
+<!-- Add this to your HTML -->
+<section class="campaign-section">
+    <div class="campaign-header">
+      <h2>Create or Join Campaigns</h2>
+      <button class="create-campaign-btn" onclick="openCampaignForm()">
+        <i class="fas fa-plus"></i> Create Campaign
+      </button>
+    </div>
+  
+    <!-- Campaign Creation Form -->
+    <div class="campaign-form-modal" id="campaignForm">
+      <div class="campaign-form-content">
+        <span class="close-btn" onclick="closeCampaignForm()">&times;</span>
+        <h3>Create New Campaign</h3>
+        <form id="campaignForm" onsubmit="createCampaign(event)">
+          <div class="form-group">
+            <input type="text" id="campaignTitle" required>
+            <label>Campaign Title</label>
+          </div>
+          
+          <div class="form-group">
+            <textarea id="campaignDescription" required></textarea>
+            <label>Description</label>
+          </div>
+  
+          <div class="form-row">
+            <div class="form-group">
+              <input type="date" id="campaignDate" required>
+              <label>Event Date</label>
+            </div>
+            <div class="form-group">
+              <input type="text" id="campaignLocation" required>
+              <label>Location</label>
+            </div>
+          </div>
+  
+          <button type="submit" class="submit-btn">Create Campaign</button>
+        </form>
+      </div>
+    </div>
+  
+    <!-- Campaigns Grid -->
+    <div class="campaigns-grid" id="campaignsContainer">
+      <!-- Campaign cards will be dynamically added here -->
+    </div>
+  </section>
+  
+  <style>
+  /* Campaign Section Styles */
+  .campaign-section {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    margin: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  }
+  
+  .campaign-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .create-campaign-btn {
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .create-campaign-btn:hover {
+    transform: translateY(-3px);
+  }
+  
+  /* Campaign Form Modal */
+  .campaign-form-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1001;
+  }
+  
+  .campaign-form-content {
+    background: rgba(255, 255, 255, 0.9);
+    width: 50%;
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    position: relative;
+  }
+  
+  /* Campaign Cards Grid */
+  .campaigns-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .campaign-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .campaign-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Form Styles */
+  .form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 2px solid #ddd;
+    background: transparent;
+    transition: 0.3s;
+  }
+  
+  .form-group label {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    pointer-events: none;
+    transition: 0.3s;
+  }
+  
+  .form-group input:focus ~ label,
+  .form-group input:valid ~ label,
+  .form-group textarea:focus ~ label,
+  .form-group textarea:valid ~ label {
+    top: -20px;
+    font-size: 0.8rem;
+    color: #6a11cb;
+  }
+  
+  .submit-btn {
+    background: linear-gradient(45deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 100%;
+    transition: transform 0.3s;
+  }
+  
+  .submit-btn:hover {
+    transform: scale(1.05);
+  }
+  </style>
+  
+  <script>
+  // Campaign Data Storage
+  let campaigns = JSON.parse(localStorage.getItem('campaigns')) || [];
+  
+  // Form Handling
+  function openCampaignForm() {
+    document.getElementById('campaignForm').style.display = 'block';
+  }
+  
+  function closeCampaignForm() {
+    document.getElementById('campaignForm').style.display = 'none';
+  }
+  
+  // Create New Campaign
+  function createCampaign(event) {
+    event.preventDefault();
+    
+    const newCampaign = {
+      id: Date.now(),
+      title: document.getElementById('campaignTitle').value,
+      description: document.getElementById('campaignDescription').value,
+      date: document.getElementById('campaignDate').value,
+      location: document.getElementById('campaignLocation').value,
+      organizer: "Current User", // Replace with actual user
+      volunteers: []
+    };
+  
+    campaigns.push(newCampaign);
+    localStorage.setItem('campaigns', JSON.stringify(campaigns));
+    closeCampaignForm();
+    renderCampaigns();
+    event.target.reset();
+  }
+  
+  // Volunteer Registration
+  function registerVolunteer(campaignId) {
+    const campaign = campaigns.find(c => c.id === campaignId);
+    const volunteerName = prompt("Enter your name to register:");
+    
+    if (volunteerName) {
+      campaign.volunteers.push(volunteerName);
+      localStorage.setItem('campaigns', JSON.stringify(campaigns));
+      renderCampaigns();
+    }
+  }
+  
+  // Render Campaigns
+  function renderCampaigns() {
+    const container = document.getElementById('campaignsContainer');
+    container.innerHTML = '';
+    
+    campaigns.forEach(campaign => {
+      const card = document.createElement('div');
+      card.className = 'campaign-card';
+      card.innerHTML = `
+        <h3>${campaign.title}</h3>
+        <p>${campaign.description}</p>
+        <div class="campaign-details">
+          <p><i class="fas fa-calendar-day"></i> ${campaign.date}</p>
+          <p><i class="fas fa-map-marker-alt"></i> ${campaign.location}</p>
+          <p>Volunteers: ${campaign.volunteers.length}</p>
+        </div>
+        <button onclick="registerVolunteer(${campaign.id})" class="register-btn">
+          Join Campaign
+        </button>
+      `;
+      container.appendChild(card);
+    });
+  }
+  
+  // Initial Render
+  renderCampaigns();
+  </script>
